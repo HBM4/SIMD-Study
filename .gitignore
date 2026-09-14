@@ -382,8 +382,6 @@ FodyWeavers.xsd
 # VS Code files for those working on multiple tools
 .vscode/*
 !.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
 
@@ -399,3 +397,11 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# GitHub configuration folder
+.github/
+
+# Cursor AI editor files
+.cursorrules
+.cursorignore
+.cursor/
