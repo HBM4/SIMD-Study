@@ -150,10 +150,7 @@ namespace _04_SimdBenchmarkWpf
         // float 원소를 하나씩 더하는 기준 구현입니다.
         private static void AddScalar(float[] left, float[] right, float[] result)
         {
-            for (int i = 0; i < left.Length; i++)
-            {
-                result[i] = left[i] + right[i];
-            }
+            for (int i = 0; i < left.Length; i++) { result[i] = left[i] + right[i]; }
         }
 
         // JIT가 선택한 Vector<float> 단위로 여러 원소를 더합니다.
@@ -171,10 +168,7 @@ namespace _04_SimdBenchmarkWpf
             }
 
             // SIMD 묶음에 남은 원소를 Scalar 방식으로 처리합니다.
-            for (; i < left.Length; i++)
-            {
-                result[i] = left[i] + right[i];
-            }
+            for (; i < left.Length; i++) { result[i] = left[i] + right[i]; }
         }
 
         // AVX 256비트 레지스터로 float 8개씩 더합니다.
@@ -200,22 +194,13 @@ namespace _04_SimdBenchmarkWpf
             }
 
             // 8개 묶음에 남은 원소를 Scalar 방식으로 처리합니다.
-            for (; i < left.Length; i++)
-            {
-                result[i] = left[i] + right[i];
-            }
+            for (; i < left.Length; i++) { result[i] = left[i] + right[i]; }
         }
 
         // 두 결과 배열의 모든 원소가 같은지 확인합니다.
         private static bool AreEqual(float[] left, float[] right)
         {
-            for (int i = 0; i < left.Length; i++)
-            {
-                if (left[i] != right[i])
-                {
-                    return false;
-                }
-            }
+            for (int i = 0; i < left.Length; i++) { if (left[i] != right[i]) { return false; } }
 
             return true;
         }
