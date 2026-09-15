@@ -5,8 +5,72 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_04_SimdBenchmarkWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="SIMD 비교" Height="720" Width="980"
+        MinHeight="620" MinWidth="840"
+        WindowStartupLocation="CenterScreen"
+        Background="#F6F8FC">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
+        <Border Padding="20" Background="White" CornerRadius="10">
+            <StackPanel>
+                <TextBlock FontSize="26" FontWeight="SemiBold" Text="SIMD 비교" />
+                <TextBlock Margin="0,6,0,0" Foreground="#586174"
+                           Text="같은 float 배열 덧셈을 C# Scalar, Vector&lt;T&gt;, C# AVX, C++/CLI AVX로 한 번씩 비교합니다." />
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="0,16,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Padding="20" Background="White" CornerRadius="10">
+                <StackPanel>
+                    <TextBlock FontSize="16" FontWeight="SemiBold" Text="실험 설정" />
+                    <TextBlock Margin="0,12,0,4" Text="배열 길이" />
+                    <DockPanel LastChildFill="False">
+                        <TextBox x:Name="ArrayLengthTextBox" Width="170" Padding="8,5" VerticalContentAlignment="Center" />
+                        <Button x:Name="RunBenchmarkButton" Margin="12,0,0,0" Padding="18,7"
+                                Content="한 번 실행" Click="RunBenchmarkButton_Click" />
+                    </DockPanel>
+                    <TextBlock Margin="0,10,0,0" Foreground="#586174" TextWrapping="Wrap"
+                               Text="각 방식은 한 번만 실행합니다. 실행 시간은 JIT 및 PC 상태에 따라 달라질 수 있습니다." />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="2" Padding="20" Background="White" CornerRadius="10">
+                <StackPanel>
+                    <TextBlock FontSize="16" FontWeight="SemiBold" Text="현재 SIMD 환경" />
+                    <TextBlock x:Name="VectorInfoTextBlock" Margin="0,12,0,0" />
+                    <TextBlock x:Name="CSharpAvxInfoTextBlock" Margin="0,6,0,0" />
+                    <TextBlock x:Name="CppCliAvxInfoTextBlock" Margin="0,6,0,0" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="2" Padding="16" Background="White" CornerRadius="10">
+            <DataGrid x:Name="ResultsDataGrid" AutoGenerateColumns="False" IsReadOnly="True"
+                      CanUserAddRows="False" HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                      BorderThickness="0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="구현 방식" Binding="{Binding Method}" Width="150" />
+                    <DataGridTextColumn Header="처리 방식" Binding="{Binding Detail}" Width="*" />
+                    <DataGridTextColumn Header="단일 실행 시간" Binding="{Binding Elapsed}" Width="150" />
+                    <DataGridTextColumn Header="Scalar 결과 비교" Binding="{Binding Result}" Width="150" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <Border Grid.Row="3" Margin="0,16,0,0" Padding="14" Background="#EAF2FF" CornerRadius="10">
+            <TextBlock x:Name="ExecutionStatusTextBlock" Foreground="#174EA6" TextWrapping="Wrap" />
+        </Border>
     </Grid>
 </Window>
