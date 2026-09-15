@@ -46,6 +46,7 @@
 
             Console.WriteLine("=== 결과 검증 ===");
             // 시간을 측정한 뒤 두 구현의 정답이 같은지 확인합니다.
+            Console.WriteLine($"Scalar와 Vector 결과 동일: {AreEqual(scalarResult, vectorResult)}");
             Console.WriteLine($"첫 번째 결과: {vectorResult[0]}");
             Console.WriteLine($"마지막 결과: {vectorResult[^1]}");
             Console.WriteLine();
@@ -98,6 +99,18 @@
 
             // 묶음에 남은 원소는 기존 Scalar 방식으로 처리합니다.
             for (; i < left.Length; i++) { result[i] = left[i] + right[i]; }
+        }
+
+        // 두 구현이 계산한 결과 배열이 같은지 확인합니다.
+        static bool AreEqual(float[] left, float[] right)
+        {
+            for (int i = 0; i < left.Length; i++)
+            {
+                // 하나라도 다르면 SIMD 계산 결과가 일치하지 않은 것입니다.
+                if (left[i] != right[i]) { return false; }
+            }
+
+            return true;
         }
     }
 }

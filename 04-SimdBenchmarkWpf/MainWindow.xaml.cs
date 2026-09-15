@@ -20,7 +20,7 @@ namespace _04_SimdBenchmarkWpf
     public partial class MainWindow : Window
     {
         // 끝의 3개 원소가 Scalar 처리로 남도록 지정했습니다.
-        private const int DefaultArrayLength = 1_000_003;
+        private const int DefaultArrayLength = 10_000_003;
         private const int MaximumArrayLength = 10_000_003;
 
         public MainWindow()
@@ -55,12 +55,10 @@ namespace _04_SimdBenchmarkWpf
                 CreateInputData(left, right);
 
                 // 기준 구현인 Scalar 결과를 먼저 만듭니다.
-                double scalarMilliseconds = MeasureSingleMilliseconds(
-                    () => AddScalar(left, right, scalarResult));
+                double scalarMilliseconds = MeasureSingleMilliseconds(() => AddScalar(left, right, scalarResult));
 
                 // Vector<T>는 JIT가 현재 CPU에 맞는 SIMD 명령을 선택합니다.
-                double vectorMilliseconds = MeasureSingleMilliseconds(
-                    () => AddVector(left, right, vectorResult));
+                double vectorMilliseconds = MeasureSingleMilliseconds(() => AddVector(left, right, vectorResult));
 
                 var rows = new List<BenchmarkRow>
                 {
@@ -74,8 +72,7 @@ namespace _04_SimdBenchmarkWpf
                 if (Avx.IsSupported)
                 {
                     float[] avxResult = new float[arrayLength];
-                    double avxMilliseconds = MeasureSingleMilliseconds(
-                        () => AddAvx(left, right, avxResult));
+                    double avxMilliseconds = MeasureSingleMilliseconds(() => AddAvx(left, right, avxResult));
                     bool avxMatches = AreEqual(scalarResult, avxResult);
 
                     rows.Add(new BenchmarkRow(
@@ -85,16 +82,12 @@ namespace _04_SimdBenchmarkWpf
                         avxMatches ? "동일" : "다름"));
                     allResultsMatch &= avxMatches;
                 }
-                else
-                {
-                    rows.Add(new BenchmarkRow("C# AVX", "이 CPU에서 AVX 미지원", null, "실행 안 함"));
-                }
+                else { rows.Add(new BenchmarkRow("C# AVX", "이 CPU에서 AVX 미지원", null, "실행 안 함")); }
 
                 if (SimdAvxBridge.IsAvxSupported())
                 {
                     float[] cppCliResult = new float[arrayLength];
-                    double cppCliMilliseconds = MeasureSingleMilliseconds(
-                        () => SimdAvxBridge.AddTo(left, right, cppCliResult));
+                    double cppCliMilliseconds = MeasureSingleMilliseconds(() => SimdAvxBridge.AddTo(left, right, cppCliResult));
                     bool cppCliMatches = AreEqual(scalarResult, cppCliResult);
 
                     rows.Add(new BenchmarkRow(
@@ -104,10 +97,7 @@ namespace _04_SimdBenchmarkWpf
                         cppCliMatches ? "동일" : "다름"));
                     allResultsMatch &= cppCliMatches;
                 }
-                else
-                {
-                    rows.Add(new BenchmarkRow("C++/CLI AVX", "이 CPU에서 AVX 미지원", null, "실행 안 함"));
-                }
+                else { rows.Add(new BenchmarkRow("C++/CLI AVX", "이 CPU에서 AVX 미지원", null, "실행 안 함")); }
 
                 ResultsDataGrid.ItemsSource = rows;
                 ExecutionStatusTextBlock.Text = allResultsMatch

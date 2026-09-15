@@ -3,7 +3,7 @@
 // 필수
 #include <immintrin.h>
 
-// 현재 PC가 AVX2를 지원하는 CPU인지 체크하기 위함 (저수준 CPU 제어 함수)
+// 현재 PC가 AVX를 지원하는 CPU인지 확인하기 위한 저수준 CPU 제어 함수입니다.
 #include <intrin.h>
 
 // C++/CLI(Managed C++) 환경에서 C#(CLR) 객체와 C++ 네이티브 포인터를 이어주는 유틸리티 (pin_ptr 등)
