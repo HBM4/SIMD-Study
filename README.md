@@ -1,6 +1,6 @@
 # C# / C++ AVX·AVX2 명령어 참조표
 
-이 문서는 .NET 8.0의 `System.Runtime.Intrinsics.X86.Avx`·`Avx2` API와 Intel C/C++ intrinsic을 기준으로 정리한 빠른 참조표입니다. `Avx`의 고유 메서드 이름 72개와 `Avx2`의 65개를 모두 포함하되, 같은 동작의 자료형별 오버로드는 한 행에 묶었습니다. 상속된 SSE 계열, 별도 명령 집합인 FMA·F16C, C++에만 있는 벡터 생성·캐스트 도우미는 제외했습니다.
+.NET 8.0의 C# `Avx`·`Avx2`와 대응하는 Intel C/C++ intrinsic을 한눈에 찾기 위한 참조표입니다. 자료형별 오버로드는 묶어서 표시합니다.
 
 ## C# / C++에서 AVX와 AVX2 선택하기
 
