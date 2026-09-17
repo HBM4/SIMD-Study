@@ -6,7 +6,7 @@ SIMD를 처음 익힐 때, 같은 일을 처리 방식에 따라 어떻게 나�
 
 <img width="957" height="678" alt="image" src="https://github.com/user-attachments/assets/c03a0dbc-4301-4377-9fca-a0186a1c8bdf" />
 
-## 구성
+## 이 프로젝트 구성
 
 - [`01-Scalar_VS_SIMD`](01-Scalar_VS_SIMD) — 일반 반복문과 `Vector<T>`를 비교하는 가장 기본적인 예제입니다.
 - [`02-Avx2_Intrinsics`](02-Avx2_Intrinsics) — `float` 배열은 AVX로, `int` 배열은 AVX2로 직접 처리합니다.
